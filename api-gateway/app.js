@@ -4,15 +4,18 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+
 var mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
 
-mongoose.connect('mongodb+srv://admin:admin@buwebdev-cluster-1-2fw4y.mongodb.net:27017', {
+
+mongoose.connect('mongodb+srv://admin:admin@buwebdev-cluster-1-2fw4y.mongodb.net:27017/api-gateway', {
   promiseLibrary: require('bluebird')
 }).then(
   () => console.log('connection successful'))
 .catch(
   (err) => console.error(err));
+
 
 
 var indexRouter = require('./routes/index');
