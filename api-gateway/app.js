@@ -17,7 +17,6 @@ mongoose.connect('mongodb+srv://admin:admin@buwebdev-cluster-1-2fw4y.mongodb.net
   (err) => console.error(err));
 
 
-
 var indexRouter = require('./routes/index');
 var apiCatalog = require('./routes/api-catalog');
 
