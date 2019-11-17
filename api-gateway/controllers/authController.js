@@ -36,15 +36,22 @@ exports.user_register = function(req, res) {
 
 // Verify token on GET
 exports.user_token = function(req, res) { 
-  User.getById(req.userId, function(err, user) {
-      if (err) return res.status(500).send('There was a problem finding the user.');
-
-      if (!user) return res.status(404).send('No user found.');
-
-      res.status(200).send(user);
-  });
+  var token = req.headers['x-access-token']; //set the headers to allow token
+ if (!token)
+   return res.status(401).send({ auth: false, message: 'No token provided' }); //send unauthorized message with not authenticated
+ jwt.verify(token, config.web.secret, function(err, decoded) { //compare token with secret key
+   if (err)
+     return res.status(500).send({ auth: false, message: 'Failed to authenticate token. ' });
+   console.log(decoded.id)
+   User.getById(decoded.id, function(err, user) { //query the user by id
+     if (err)
+       return res.status(500).send('There was a problem finding the user.'); //server error
+     if (!user)
+       return res.status(404).send('No user found.'); //not found error
+     res.status(200).send(user); //if found send send the user in the response
+   });
+ });
 };
-
 // Login as an existing user on POST
 exports.user_login = function(req, res) {
   

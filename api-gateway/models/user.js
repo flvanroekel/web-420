@@ -20,7 +20,7 @@ var userSchema = new mongoose.Schema({
     email: String
 });
 
-module.exports = mongoose.model('User', userSchema);
+var User = module.exports = mongoose.model('User', userSchema);
 
 
 /**
