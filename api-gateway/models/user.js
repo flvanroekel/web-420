@@ -20,19 +20,15 @@ var userSchema = new mongoose.Schema({
     email: String
 });
 
-var User = module.exports = mongoose.model('User', userSchema);
+var User = mongoose.model('User', userSchema); //set user schema as exportable so other pages can use object
+module.exports = User;
 
-
-/**
- Database queries
- */
-
-module.exports.add = (user, callback) => {
-    user.save(callback);
+//database queries happen here
+module.exports.add = (user, callback) => { //add the user to the database
+  user.save(callback);
 };
 
-
-module.exports.getById = (id, callback) => {
-    var query = {_id: id};
-    User.findById(query, callback);
+module.exports.getById = (id, callback) => { //get user by id
+  var query = { _id: id };
+  User.findById(query, callback);
 };
